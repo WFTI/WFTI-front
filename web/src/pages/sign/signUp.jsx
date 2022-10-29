@@ -7,17 +7,18 @@ import axios from 'axios';
 
 import TextField from "../../components/TextField";
 import Postcode from "../../components/Postcode";
-import PopupDom from "../../components/PopupDom";
+import Modal from "react-modal";
 
 function Signup() {
     const passwordRegExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
     const schema = yup.object().shape({
-        email: yup.string().email().required(),
-        nickName: yup.string().min(2).max(10).required(),
-        pw: yup.string().matches(passwordRegExp).required(),
+        userEmpNo: yup.string().length(8),
+        userNm: yup.string().min(2).max(10),
+        pw: yup.string().matches(passwordRegExp),
         checkPw: yup.string().oneOf([yup.ref("pw"), null]),
-        birth: yup.string().required()
+        age: yup.string().min(1).max(3),
+        address: yup.string()
     }).required();
 
     const [disabled, setDisabled] = useState(false);
@@ -37,47 +38,66 @@ function Signup() {
 
     const closePostCode = (data) => {
         console.log(data)
-        setBname(data.bname);    
+        setBname(data!=undefined ? data.bname : '');    
         setIsPopupOpen(false)
     }
 
     const submitForm = (data) => {
+        data.address = {bname}.bname;
+        setDisabled(true);
         console.log("submit : " + JSON.stringify(data));
         // axios.post('/v1/createUser')
         //     .then(response => console.log(response.resCd))
         //     .catch(error => console.log(error))
-        axios.get('v1/user/selectAll').then(response => console.log(response)).catch(error => console.log(error))
+        axios.get('v1/user/selectAll')
+            .then(response => {
+                console.log(response)
+                setDisabled(false);
+            })
+            .catch( error => {
+                console.log(error) 
+                setDisabled(false);
+            })
     }
     return ( 
-        <form onSubmit={handleSubmit(submitForm)} css={[formWrapper]}>
-            <TextField
-                text={"이메일"}
-                name={"email"}
-                inputType={"email"}
-                errorMsg={errors.email && "이메일 형식이 맞지 않습니다."}
-                register={register}
-            />
-            <TextField
-                text={"닉네임"}
-                name={"nickName"}
-                errorMsg={errors.name && "2글자 이상 입력해주세요."}
-                register={register}
-            />
-            <TextField
-                text={"비밀번호"}
-                name={"pw"}
-                inputType={"password"}
-                errorMsg={errors.pw && "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요."}
-                register={register}
-            />
-            <TextField
-                text={"비밀번호 확인"}
-                name={"checkPw"}
-                inputType={"password"}
-                errorMsg={errors.checkPw && "비밀번호가 똑같지 않습니다."}
-                register={register}
-            />
-            <div>
+        <>
+            <form onSubmit={handleSubmit(submitForm)} css={[formWrapper]}>
+                <TextField
+                    text={"사번"}
+                    name={"userEmpNo"}
+                    errorMsg={errors.userEmpNo && "사번 형식이 맞지 않습니다."}
+                    register={register}
+                />
+                <TextField
+                    text={"이름"}
+                    name={"userNm"}
+                    errorMsg={errors.userNm && "2글자 이상 입력해주세요."}
+                    register={register}
+                />
+                <TextField
+                    text={"비밀번호"}
+                    name={"pw"}
+                    inputType={"password"}
+                    errorMsg={errors.pw && "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요."}
+                    register={register}
+                />
+                <TextField
+                    text={"비밀번호 확인"}
+                    name={"checkPw"}
+                    inputType={"password"}
+                    errorMsg={errors.checkPw && "비밀번호가 똑같지 않습니다."}
+                    register={register}
+                />
+                <TextField
+                    text={"나이"}
+                    name={"age"}
+                    errorMsg={errors.age && "나이를 입력하세요."}
+                    register={register}
+                />
+                <>
+                    <input type="radio" name="gender" value="M"/>남성
+                    <input type="radio" name="gender" value="F"/>여성
+                </>
                 <TextField
                     text={"주거지역"}
                     name={"address"}
@@ -86,25 +106,16 @@ function Signup() {
                     readonly={true}
                     value={bname}
                 /> 
-                <button type = 'button' onClick={openPostCode}>주소찾기</button>
-                <div id = 'popupDom'>
-                    {isPopupOpen && (
-                        <PopupDom>
-                            <Postcode onClose={closePostCode} />
-                        </PopupDom>
-                    )}
-                </div>
-            </div>
-            
-            <TextField
-                text={"생년월일"}
-                name={"birth"}
-                inputType="date"
-                errorMsg={errors.birth && "생년월일을 입력해주세요."}
-                register={register}
-            />
-            <button type="submit" disabled={disabled} >회원가입</button>
-        </form>
+                <button type="button" onClick={openPostCode}>주소찾기</button>
+                
+                
+                <button type="submit" disabled={disabled} >회원가입</button>
+            </form>
+
+            <Modal isOpen={isPopupOpen}>
+                <Postcode onClose={closePostCode} />
+            </Modal>
+        </>
     )
 }
 

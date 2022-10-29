@@ -17,27 +17,25 @@ const PopupPostCode = (props) => {
           }
           fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
-        console.log(data)
-        console.log(fullAddress)
-        console.log(data.zonecode)
+        
         props.onClose(data)
     }
  
     return(
-        <div>
+        <>
             <DaumPostcode style={postCodeStyle} onComplete={handlePostCode} />
             <button type='button' onClick={() => {props.onClose()}} className='postCode_btn'>닫기</button>
-        </div>
+        </>
     )
 }
  
 export default PopupPostCode;
 
 const postCodeStyle = css `
-    display: "block",
-    position: "absolute",
-    top: "10%",
-    width: "600px",
-    height: "600px",
-    padding: "7px",
+    background : rgba(0,0,0,0.25);
+    position : fixed;
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
   `;
