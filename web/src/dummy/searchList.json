@@ -1,0 +1,21 @@
+{
+    "clubNmList":[
+        {
+            "clubSron" : "1",
+            "clubNm" : "test1",
+            "clubDescTxt" : "test1"
+        },{
+            "clubSron" : "2",
+            "clubNm" : "test2",
+            "clubDescTxt" : "test2"
+        },{
+            "clubSron" : "3",
+            "clubNm" : "test3",
+            "clubDescTxt" : "test3"
+        },{
+            "clubSron" : "4",
+            "clubNm" : "test4",
+            "clubDescTxt" : "test4"
+        }
+    ]
+}

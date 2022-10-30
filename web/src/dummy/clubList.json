@@ -1,0 +1,51 @@
+{ "clubList" : [{
+                    "clubSrno" : 1,
+                    "rgsUserSrno" : 1,
+                    "clubNm" : "테스트1"
+                },{
+                    "clubSrno" : 2,
+                    "rgsUserSrno" : 2,
+                    "clubNm" : "테스트2"
+
+                },{
+
+                    "clubSrno" : 3,
+                    "rgsUserSrno" : 3,
+                    "clubNm" : "테스트3"
+                },{
+
+                    "clubSrno" : 4,
+                    "rgsUserSrno" : 4,
+                    "clubNm" : "테스트4"
+                },{
+
+                    "clubSrno" : 5,
+                    "rgsUserSrno" : 5,
+                    "clubNm" : "테스트5"
+                },{
+
+                    "clubSrno" : 6,
+                    "rgsUserSrno" : 6,
+                    "clubNm" : "테스트6"
+                },{
+
+                    "clubSrno" : 7,
+                    "rgsUserSrno" : 7,
+                    "clubNm" : "테스트7"
+                },{
+
+                    "clubSrno" : 8,
+                    "rgsUserSrno" : 8,
+                    "clubNm" : "테스트8"
+                },{
+
+                    "clubSrno" : 9,
+                    "rgsUserSrno" : 9,
+                    "clubNm" : "테스트9"
+                },{
+
+                    "clubSrno" : 10,
+                    "rgsUserSrno" : 10,
+                    "clubNm" : "테스트10"
+                }]
+}

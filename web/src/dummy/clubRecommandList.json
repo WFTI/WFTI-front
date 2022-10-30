@@ -1,0 +1,51 @@
+{ "clubList" : [{
+                "clubSrno" : 11,
+                "rgsUserSrno" : 11,
+                "clubNm" : "추천테스트1"
+            },{
+                "clubSrno" : 12,
+                "rgsUserSrno" : 12,
+                "clubNm" : "추천테스트2"
+
+            },{
+
+                "clubSrno" : 13,
+                "rgsUserSrno" : 13,
+                "clubNm" : "추천테스트3"
+            },{
+
+                "clubSrno" : 14,
+                "rgsUserSrno" : 14,
+                "clubNm" : "추천테스트4"
+            },{
+
+                "clubSrno" : 15,
+                "rgsUserSrno" : 15,
+                "clubNm" : "추천테스트5"
+            },{
+
+                "clubSrno" : 16,
+                "rgsUserSrno" : 16,
+                "clubNm" : "추천테스트6"
+            },{
+
+                "clubSrno" : 17,
+                "rgsUserSrno" : 17,
+                "clubNm" : "추천테스트7"
+            },{
+
+                "clubSrno" : 18,
+                "rgsUserSrno" : 18,
+                "clubNm" : "추천테스트8"
+            },{
+
+                "clubSrno" : 19,
+                "rgsUserSrno" : 19,
+                "clubNm" : "추천테스트9"
+            },{
+
+                "clubSrno" : 20,
+                "rgsUserSrno" : 0,
+                "clubNm" : "추천테스트10"
+            }]
+}

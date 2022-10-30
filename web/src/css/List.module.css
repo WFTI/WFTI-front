@@ -1,0 +1,33 @@
+.clubList{
+    background-color:#86efef;
+    width:50px;
+    height:50px;
+    border-radius:30px;
+    text-align:center;
+    margin:0 auto;
+    font-size:12px;
+    vertical-align:middle;
+}
+.colContainer{
+    width:50px;
+    height:70px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size:12px;
+    vertical-align: middle;
+    align-items: center;
+    margin-right: 4%;
+}
+
+.rowContainer{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.rowContainer::-webkit-scrollbar{
+    display: none;
+}

@@ -5,6 +5,9 @@ import { css } from "@emotion/react";
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 
+import TextFieldCss from "../../css/TextField.module.css"
+import BtnFieldCss from "../../css/Button.module.css"
+
 import TextField from "../../components/TextField";
 import Postcode from "../../components/Postcode";
 import Modal from "react-modal";
@@ -18,7 +21,7 @@ function Signup() {
         pw: yup.string().matches(passwordRegExp),
         checkPw: yup.string().oneOf([yup.ref("pw"), null]),
         age: yup.string().min(1).max(3),
-        address: yup.string()
+        bname: yup.string().min(1)
     }).required();
 
     const [disabled, setDisabled] = useState(false);
@@ -44,6 +47,7 @@ function Signup() {
 
     const submitForm = (data) => {
         data.address = {bname}.bname;
+        
         setDisabled(true);
         console.log("submit : " + JSON.stringify(data));
         // axios.post('/v1/createUser')
@@ -61,7 +65,7 @@ function Signup() {
     }
     return ( 
         <>
-            <form onSubmit={handleSubmit(submitForm)} css={[formWrapper]}>
+            <form onSubmit={handleSubmit(submitForm)} className={TextFieldCss.formWrapperR}>
                 <TextField
                     text={"사번"}
                     name={"userEmpNo"}
@@ -94,22 +98,23 @@ function Signup() {
                     errorMsg={errors.age && "나이를 입력하세요."}
                     register={register}
                 />
-                <>
-                    <input type="radio" name="gender" value="M"/>남성
-                    <input type="radio" name="gender" value="F"/>여성
-                </>
-                <TextField
-                    text={"주거지역"}
-                    name={"address"}
-                    errorMsg={errors.address && "주소를 입력해주세요."}
-                    register={register}
-                    readonly={true}
-                    value={bname}
-                /> 
-                <button type="button" onClick={openPostCode}>주소찾기</button>
+                <div className={TextFieldCss.fieldWrapperC}>
+                    <label htmlFor="gender">성별</label>
+                    <div className={BtnFieldCss.fdr}>
+                        <input className={TextFieldCss.radioBtn}type="radio" name="gender" value="M"/>남성
+                        <input className={TextFieldCss.radioBtn}type="radio" name="gender" value="F"/>여성
+                    </div>    
+                </div>
+                <div className={TextFieldCss.fieldWrapperC}>        
+                    <div className={TextFieldCss.fieldWrapperR}>
+                        <label htmlFor="address">주거지역</label>
+                        <button className={BtnFieldCss.searchBtn} type="button" onClick={openPostCode}>주소찾기</button>
+                    </div>
+                    <input type="text" {...register("address")} className={TextFieldCss.inputStyle} value={bname ? bname : ''} readOnly/>
+                    {errors.address && <span className={TextFieldCss.errorMsgStyle}>"주소를 입력해주세요."</span>}
+                </div>
                 
-                
-                <button type="submit" disabled={disabled} >회원가입</button>
+                <button className={BtnFieldCss.submitBtn} type="submit" disabled={disabled} >회원가입</button>
             </form>
 
             <Modal isOpen={isPopupOpen}>
@@ -120,11 +125,3 @@ function Signup() {
 }
 
 export default Signup;
-
-const formWrapper = css`
-  width: 500px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin: 0 auto;
-  padding: 50px;
-`;
