@@ -21,18 +21,19 @@ function Signup() {
         pw: yup.string().matches(passwordRegExp),
         checkPw: yup.string().oneOf([yup.ref("pw"), null]),
         age: yup.string().min(1).max(3),
+        gender: yup.string().min(1),
         bname: yup.string().min(1)
     }).required();
 
     const [disabled, setDisabled] = useState(false);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [bname, setBname] = useState('');
+    const [gender, setGender] = useState('');
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
         resolver: yupResolver(schema)
-        
     });
 
     const openPostCode = () => {
@@ -47,13 +48,16 @@ function Signup() {
 
     const submitForm = (data) => {
         data.address = {bname}.bname;
-        
+        data.gender = gender;
+        errors.gender=true;
+
         setDisabled(true);
         console.log("submit : " + JSON.stringify(data));
+
         // axios.post('/v1/createUser')
         //     .then(response => console.log(response.resCd))
         //     .catch(error => console.log(error))
-        axios.get('v1/user/selectAll')
+        axios.get('v1/user/selectUsers')
             .then(response => {
                 console.log(response)
                 setDisabled(false);
@@ -63,6 +67,12 @@ function Signup() {
                 setDisabled(false);
             })
     }
+
+    const btnEvent = (e) => {
+        console.log(e.target.value)
+        setGender(e.target.value);
+    }
+
     return ( 
         <>
             <form onSubmit={handleSubmit(submitForm)} className={TextFieldCss.formWrapperR}>
@@ -100,10 +110,11 @@ function Signup() {
                 />
                 <div className={TextFieldCss.fieldWrapperC}>
                     <label htmlFor="gender">성별</label>
-                    <div className={BtnFieldCss.fdr}>
+                    <div className={BtnFieldCss.fdr} onChange={btnEvent}>
                         <input className={TextFieldCss.radioBtn}type="radio" name="gender" value="M"/>남성
                         <input className={TextFieldCss.radioBtn}type="radio" name="gender" value="F"/>여성
-                    </div>    
+                    </div>
+                    {errors.gender && <span className={TextFieldCss.errorMsgStyle}>"성별을 선택해주세요."</span>}    
                 </div>
                 <div className={TextFieldCss.fieldWrapperC}>        
                     <div className={TextFieldCss.fieldWrapperR}>
@@ -111,7 +122,7 @@ function Signup() {
                         <button className={BtnFieldCss.searchBtn} type="button" onClick={openPostCode}>주소찾기</button>
                     </div>
                     <input type="text" {...register("address")} className={TextFieldCss.inputStyle} value={bname ? bname : ''} readOnly/>
-                    {errors.address && <span className={TextFieldCss.errorMsgStyle}>"주소를 입력해주세요."</span>}
+                    {errors.bname && <span className={TextFieldCss.errorMsgStyle}>"주소를 입력해주세요."</span>}
                 </div>
                 
                 <button className={BtnFieldCss.submitBtn} type="submit" disabled={disabled} >회원가입</button>
